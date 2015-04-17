@@ -3,7 +3,6 @@
 # Tested on Debian 5, 6, and Ubuntu 11.04,12.04
 # April 2, 2013 v1.11
 # http://www.putdispenserhere.com/pptp-debian-ubuntu-openvz-setup-script/
-
 echo "######################################################"
 echo "Interactive PoPToP Install Script for an OpenVZ VPS"
 echo
@@ -31,6 +30,26 @@ if test $x -eq 1; then
 	read ip
 # get the VPS IP
 ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
+
+echo
+echo "######################################################"
+echo "Remove IPtables Rules"
+echo "######################################################"
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+
+echo
+echo "######################################################"
+echo "Removing PoPToP"
+echo "######################################################"
+sudo apt-get remove pptpd -y
 
 echo
 echo "######################################################"
@@ -82,7 +101,7 @@ echo "######################################################"
 iptables -I INPUT -p tcp --dport 1723 -m state --state NEW -j ACCEPT
 iptables -I INPUT -p gre -j ACCEPT
 iptables -t nat -I POSTROUTING -o venet0 -j MASQUERADE
-iptables -I FORWARD -p tcp --tcp-flags SYN,RST SYN -s 172.20.1.0/24 -j TCPMSS  --clamp-mss-to-pmtu
+iptables -I FORWARD -p tcp --tcp-flags SYN,RST SYN -s 10.0.0.0/24 -j TCPMSS  --clamp-mss-to-pmtu
 # saves iptables routing rules and enables them on-boot
 iptables-save > /etc/iptables.conf
 
