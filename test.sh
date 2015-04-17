@@ -80,8 +80,8 @@ END
 # setting up pptpd.conf
 echo "option /etc/ppp/pptpd-options" > /etc/pptpd.conf
 echo "logwtmp" >> /etc/pptpd.conf
-echo "localip 10.0.0.1" >> /etc/pptpd.conf
-echo "remoteip 10.1.0.2-100" >> /etc/pptpd.conf
+echo "localip 10.20.1.1" >> /etc/pptpd.conf
+echo "remoteip 10.20.1.100-200" >> /etc/pptpd.conf
 
 # adding new user
 echo "$u	*	$p	$ip" >> /etc/ppp/chap-secrets
@@ -101,7 +101,7 @@ echo "######################################################"
 iptables -I INPUT -p tcp --dport 1723 -m state --state NEW -j ACCEPT
 iptables -I INPUT -p gre -j ACCEPT
 iptables -t nat -I POSTROUTING -o venet0 -j MASQUERADE
-iptables -I FORWARD -p tcp --tcp-flags SYN,RST SYN -s 172.20.1.0/24 -j TCPMSS  --clamp-mss-to-pmtu
+iptables -I FORWARD -p tcp --tcp-flags SYN,RST SYN -s 10.20.1.0/24 -j TCPMSS  --clamp-mss-to-pmtu
 # saves iptables routing rules and enables them on-boot
 touch /etc/iptables.conf
 iptables-save > /etc/iptables.conf
