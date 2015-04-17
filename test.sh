@@ -27,7 +27,8 @@ if test $x -eq 1; then
 	read u
 	echo "Specify password that you want the server to use:"
 	read p
-
+	echo "Specify ipaddress that you want the client to use:"
+	read ip
 # get the VPS IP
 ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
 
@@ -64,7 +65,7 @@ echo "localip 10.0.0.1" >> /etc/pptpd.conf
 echo "remoteip 10.1.0.2-6" >> /etc/pptpd.conf
 
 # adding new user
-echo "$u	*	$p	*" >> /etc/ppp/chap-secrets
+echo "$u	*	$p	$ip" >> /etc/ppp/chap-secrets
 
 echo
 echo "######################################################"
@@ -116,18 +117,20 @@ elif test $x -eq 2; then
 	read u
 	echo "Specify password that you want the server to use:"
 	read p
+	echo "Specify ipaddress that you want the client to use:"
+	read ip
 
 # get the VPS IP
 ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
 
 # adding new user
-echo "$u	*	$p	*" >> /etc/ppp/chap-secrets
+echo "$u	*	$p	$ip" >> /etc/ppp/chap-secrets
 
 echo
 echo "######################################################"
 echo "Addtional user added!"
 echo "Connect to your VPS at $ip with these credentials:"
-echo "Username:$u ##### Password: $p"
+echo "Username:$u ##### Password: $p #### IP: $ip"
 echo "######################################################"
 
 else
