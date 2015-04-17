@@ -20,14 +20,15 @@ echo "Select on option:"
 echo "1) Set up new PoPToP server AND create one user"
 echo "2) Create additional users"
 echo "######################################################"
-read x
+x = 1
+#read x
 if test $x -eq 1; then
 	echo "Enter username that you want to create (eg. client1 or john):"
-	read u
+	#read u
 	echo "Specify password that you want the server to use:"
-	read p
+	#read p
 	echo "Specify ipaddress that you want the client to use:"
-	read ip
+	#read ip
 # get the VPS IP
 ip=`ifconfig venet0:0 | grep 'inet addr' | awk {'print $2'} | sed s/.*://`
 
@@ -84,7 +85,8 @@ echo "localip 10.20.1.1" >> /etc/pptpd.conf
 echo "remoteip 10.20.1.100-200" >> /etc/pptpd.conf
 
 # adding new user
-echo "$u	*	$p	$ip" >> /etc/ppp/chap-secrets
+#echo "$u	*	$p	$ip" >> /etc/ppp/chap-secrets
+echo "test	*	test	*" >> /etc/ppp/chap-secrets
 
 echo
 echo "######################################################"
