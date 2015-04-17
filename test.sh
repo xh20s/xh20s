@@ -21,7 +21,7 @@ echo "1) Set up new PoPToP server AND create one user"
 echo "2) Create additional users"
 echo "######################################################"
 read x
-if $x == 1 then
+if test $x -eq 1; then
 	echo "Enter username that you want to create (eg. client1 or john):"
 	#read u
 	echo "Specify password that you want the server to use:"
@@ -133,7 +133,7 @@ echo "Username:$u ##### Password: $p"
 echo "######################################################"
 
 # runs this if option 2 is selected
-elif $x == 2 then
+elif test $x -eq 2; then
 	echo "Enter username that you want to create (eg. client1 or john):"
 	read u
 	echo "Specify password that you want the server to use:"
