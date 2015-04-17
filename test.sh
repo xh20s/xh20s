@@ -103,15 +103,16 @@ iptables -I INPUT -p gre -j ACCEPT
 iptables -t nat -I POSTROUTING -o venet0 -j MASQUERADE
 iptables -I FORWARD -p tcp --tcp-flags SYN,RST SYN -s 172.20.1.0/24 -j TCPMSS  --clamp-mss-to-pmtu
 # saves iptables routing rules and enables them on-boot
+touch /etc/iptables.conf
 iptables-save > /etc/iptables.conf
-
+touch /etc/network/if-pre-up.d/iptables
 cat > /etc/network/if-pre-up.d/iptables <<END
 
 #!/bin/sh
 iptables-restore < /etc/iptables.conf
 END
-
 chmod +x /etc/network/if-pre-up.d/iptables
+touch /etc/ppp/ip-up
 cat >> /etc/ppp/ip-up <<END
 ifconfig ppp0 mtu 1400
 END
