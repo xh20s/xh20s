@@ -100,7 +100,7 @@ echo "######################################################"
 
 iptables -I INPUT -p tcp --dport 1723 -m state --state NEW -j ACCEPT
 iptables -I INPUT -p gre -j ACCEPT
-iptables -t nat -I POSTROUTING -o venet0:0-00 -j MASQUERADE
+iptables -t nat -I POSTROUTING -o venet0-00 -j MASQUERADE
 iptables -I FORWARD -p tcp --tcp-flags SYN,RST SYN -s 10.20.1.0/24 -j TCPMSS  --clamp-mss-to-pmtu
 # saves iptables routing rules and enables them on-boot
 touch /etc/iptables.conf
