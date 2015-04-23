@@ -51,7 +51,7 @@ END
 
 # setting up pptpd.conf
 echo "option /etc/ppp/pptpd-options" > /etc/pptpd.conf
-echo "logwtmp" >> /etc/pptpd.conf
+# echo "logwtmp" >> /etc/pptpd.conf # <~~ log
 echo "localip 192.168.10.0" >> /etc/pptpd.conf
 echo "remoteip 192.168.10.1-235" >> /etc/pptpd.conf
 
