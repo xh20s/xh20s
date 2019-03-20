@@ -1,0 +1,37 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery Select Picker Plugin Demos</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+<link href="picker.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container">
+<h1>jQuery Select Picker Plugin Demos</h1>
+  <h2>Multi Select</h2>
+  <select name="multi" id="multi" multiple>
+    <option disabled hidden>Select value</option>
+    <option>HTML5</option>
+    <option>CSS3</option>
+    <option>JavaScript</option>
+    <option>ReactJS</option>
+    <option>React Native</option>
+    <option>AngularJS</option>
+    <option>Node.js</option>
+    <option>jQuery Script</option>
+  </select>
+  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script> 
+  <script src="picker.js"></script> 
+</div>
+<script>
+$('#multi').picker({search : true,limit : 3,searchAutofocus : true,texts: {trigger : "Select value",noResult : "No results",search : "Search"}}).on('sp-change', function(e){
+alert($('#multi option:selected').toArray().map(item => item.text).join());
+});
+</script>
+</body>
+</html>
